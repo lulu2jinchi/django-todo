@@ -22,9 +22,9 @@ def toDateTime(mills):
 
 @login_required
 def index(request):
-    text = requests.get('http://127.0.0.1:8080').text
-    return HttpResponse(text, content_type='text/html')
-    # return render(request, 'index.html')
+    # text = requests.get('http://127.0.0.1:8080').text
+    # return HttpResponse(text, content_type='text/html')
+    return render(request, 'index.html')
 
 #查询当前用户的所有事项
 #/api/item_list
