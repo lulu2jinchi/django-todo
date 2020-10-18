@@ -4,31 +4,130 @@
     <title>登录</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <style>
-       body {
-            background: url('background.jpg') no-repeat fixed center;
-            background-size: cover;
-            background-color:rgba(0,0,0,1)50%;
+        * {
+            box-sizing: border-box;
+
+        }
+
+        body {
+
+            padding: 0 5%;
+            /* background: url('http://47.114.47.189/static/background.jpg') no-repeat fixed center; */
+            /* background-size: cover; */
+            background-color: #ecd2b7;
+            /* display: flex; */
+            /* align-items: center;  */
+            /* justify-content: center;         */
+        }
+
+        .login {
+            margin-top: 70px;
+            font-size: 50px;
+            color: white;
+            letter-spacing: 3px;
         }
 
         input {
             /* background-color: aquamarine; */
+            outline: none;
+            border: 0px;
+        }
+
+        form {
+            width: 100%;
+        }
+
+        label {
+            display: none;
+        }
+
+        p {
+            /* display: flex; */
+            /* flex-direction: column; */
+            width: 100%;
+            height: 45px;
+            display: block;
+            line-height: 45px;
+            text-align: center;
         }
 
         .box {
-            color: azure;
+            /* position:absolute; */
+            margin: 0 auto;
+            width: 90%;
+            height: 60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #acc5c2;
+            margin-top: 70px;
+
+        }
+
+        input[name=sumbit] {
+            /* background-color: #ecd2b7; */
+            background-color: cfaf96;
+            width: 8rem;
+            height: 2rem;
+            border-radius:3px ;
+            border:none;
+            font-size: large;
+            color:cornsilk;
+            letter-spacing: 8px;
+            margin-top: 40px;
+        }
+
+        input[name=username] {
+            background-color: white;
+            width: 15rem;
+            height: 2.2rem;
+            border-bottom: 1px #b3d5f74c solid;
+            padding-left: 20px;
+
+        }
+        input[name=username]:focus {
+            background-color: white;
+            width: 15rem;
+            height: 2.2rem;
+            border-bottom: 1px #409EFF solid;
+            padding-left: 20px;
+        }
+        input[name=password] {
+            /* background-color: #ecd2b7; */
+            background-color: white;
+            width: 15rem;
+            height: 2.2rem;
+            border-bottom: 1px #b3d5f74c solid;
+
+            padding-left: 20px;
+
+        }
+        input[name=password]:focus {
+            background-color: white;
+            width: 15rem;
+            height: 2.2rem;
+            border-bottom: 1px #409EFF solid;
+            padding-left: 20px;
+            
         }
     </style>
 </head>
 
 <body>
-    <form method="POST">
-        <div class="box">{% csrf_token %}</div>
+    <p class="login">Login</p>
 
-        <!-- form variable -->
-        {{ form.as_p }}
+    <div class="box">
 
-        <input type="submit" name="sumbit">
-    </form>
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- form variable -->
+            {{ form.as_p }}
+            <p>
+            <input type="submit" name="sumbit">
+        </p>
+        </form>
+    </div>
 </body>
 
 </html>

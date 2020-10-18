@@ -7,6 +7,7 @@ import requests
 from datetime import datetime, timezone
 from .models import *
 
+
 def getJSONResp(resp, ok=True, message=''):
     return HttpResponse(json.dumps(
         {
@@ -16,18 +17,21 @@ def getJSONResp(resp, ok=True, message=''):
         }
     ), content_type='application/json')
 
+
 def toDateTime(mills):
     return datetime.fromtimestamp(mills / 1000, timezone.utc)
 
 
 @login_required
 def index(request):
-    text = requests.get('http://127.0.0.1:8080').text
-    return HttpResponse(text, content_type='text/html')
-    # return render(request, 'index.html')
+    # text = requests.get('http://127.0.0.1:8080').text
+    # return HttpResponse(text, content_type='text/html')
+    return render(request, 'index.html')
 
-#查询当前用户的所有事项
-#/api/item_list
+# 查询当前用户的所有事项
+# /api/item_list
+
+
 @login_required
 def item_list(request):
     items = TodoItem.objects.filter(userid=request.user.id)
@@ -38,10 +42,11 @@ def item_list(request):
         )
     return getJSONResp(resp)
 
+
 @login_required
 @csrf_exempt
-def item(request, id = -1):
-    #查询
+def item(request, id=-1):
+    # 查询
     if request.method == 'GET':
         if id < 0:
             return getJSONResp(None, False, '请提供id')
@@ -58,7 +63,7 @@ def item(request, id = -1):
         except:
             return getJSONResp(None, False, '查询失败')
 
-    #新建
+    # 新建
     if request.method == 'POST':
         try:
             payload = json.loads(request.body)
@@ -68,12 +73,12 @@ def item(request, id = -1):
                 create_date=toDateTime(payload['create_date']),
                 due_date=toDateTime(payload['due_date']),
                 status='normal'
-                )
+            )
             new_item.save()
             return getJSONResp(new_item.toJSON(), True, '创建成功')
         except:
             return getJSONResp(None, False, '创建失败')
-    #修改
+    # 修改
     if request.method == 'PUT':
         try:
             payload = json.loads(request.body)
@@ -92,8 +97,8 @@ def item(request, id = -1):
             return getJSONResp(result.toJSON(), True, '修改成功')
         except:
             return getJSONResp(None, False, '修改失败')
-    
-    #删除
+
+    # 删除
     if request.method == 'DELETE':
         if id < 0:
             return getJSONResp(None, False, '请提供id')
